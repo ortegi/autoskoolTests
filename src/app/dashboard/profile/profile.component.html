@@ -1,8 +1,8 @@
 
 
 <div>
-    <h1 class="text-5xl tet-bold text-color-purple text-center my-5"> 💾 Test Realizados</h1>
-    <div *ngIf="userTests.length > 0" class="mt-3 mx-5 flex flex-wrap max-w-full" >
+    <h1 class="text-5xl tet-bold  text-center my-5"> 💾 Test Realizados</h1>
+    <div *ngIf="userTests.length > 0; else noTests" class="mt-3 mx-5 flex flex-wrap max-w-full" >
         <div *ngFor="let t of userTests; index as i;"  class="rounded-lg w-15 text-white p-5 mr-3 mb-3 flex flex-col"  
          [ngClass]="{
           'bg-green-500': t.passed,
@@ -16,6 +16,10 @@
             <p class="">Suspenso 😐</p>
           </ng-template>
         </div>
-      </div>
+    </div>
+    <ng-template #noTests class="">
+        <h1 class="text-3xl tet-bold text-center my-10"> Vaya! Parece que aun no has hecho ningún test</h1>
+        <img src="../../assets/images/other/vaya.gif" class="mx-auto my-5">
+      </ng-template>
 
 </div>
