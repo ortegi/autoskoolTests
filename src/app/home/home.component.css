@@ -1,0 +1,12 @@
+
+
+
+.is-invalid{
+    border-color: #e63946;
+    border-width: 1px;
+}
+
+.is-valid{
+    border-color: #76c893;
+    border-width: 1px;
+}

@@ -1,0 +1,91 @@
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+
+    <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+      <img class="mx-auto h-52 w-auto" src="../../assets/images/other/logo.jpg" alt="Autoskool" >
+      <h2 class="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Registrate</h2>
+    </div>
+    <div class="p-2">
+      <h4 *ngIf="submitted" class="text-base text-red-700 my-2">No olvides rellenar todos los datos </h4>
+    </div>
+   
+    <div class="mt-3 sm:mx-auto sm:w-full sm:max-w-sm">
+      <form class="space-y-6"  autocomplete="off" [formGroup]="formu" (ngSubmit)="guardar()" >
+        <div>
+          <label for="nombre" class="block text-sm font-medium leading-6 text-gray-900">Nombre</label>
+          <div class="mt-2">
+            <input id="nombre" name="nombre" type="text" 
+             placeholder="nombre"
+             formControlName="nombre"
+             [ngClass]="{'is-invalid': NombreNoValido, 'is-valid': !NombreNoValido}"
+            class="form-control lock w-full rounded-md border-0 p-2 text-gray-900 shadow-sm  placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <p *ngIf="NombreNoValido" class="text-red-700"> porfavor, escribe un nombre</p>
+          </div>
+        </div>
+        <div>
+          <label for="apellido" class="block text-sm font-medium leading-6 text-gray-900">Apellido</label>
+          <div class="mt-2">
+            <input id="apellido" name="apellido" type="text" 
+             placeholder="apellido"
+             formControlName="apellido"
+             [ngClass]="{'is-invalid': ApellidoNoValido, 'is-valid': !ApellidoNoValido}"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm  ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <p *ngIf="ApellidoNoValido" class="text-red-700">por favor, escribe un apellido </p>
+          </div>
+        </div>
+  
+        <div>
+          <label for="dni" class="block text-sm font-medium leading-6 text-gray-900">Dni</label>
+          <div class="mt-2">
+            <input id="dni" name="dni" type="text" 
+             placeholder="dni"
+             formControlName="dni"
+             [ngClass]="{'is-invalid': DniNoValido, 'is-valid': !DniNoValido}"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm   ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <p *ngIf="DniNoValido" class="text-red-700 text-sm">por favor, escribe tu DNI </p>
+          </div>
+        </div>
+
+     
+
+        <div>
+          <label for="email" class="block text-sm font-medium leading-6 text-gray-900">Email</label>
+          <div class="mt-2">
+            <input id="email" name="email" type="email" 
+             placeholder="email"
+             formControlName="email"
+             [ngClass]="{'is-invalid': CorreoNoValido, 'is-valid': !CorreoNoValido}"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            <p *ngIf="CorreoNoValido" class="text-red-700 text-sm">por favor, introduce un correo valido</p>
+          </div>
+        </div>
+        
+        <div formGroupName="contraseñaForm" class="mt-2">
+          <label for="password" class="block text-sm font-medium leading-6 text-gray-900">Contraseña</label>
+          <div class="mt-2 mb-4">
+            <input id="password" name="password" 
+            type="password" 
+            formControlName="ps1"   [ngClass]="{'is-invalid': ValidPassword, 'is-valid': !ValidPassword}"
+            placeholder="contraseña" 
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+            
+          </div>
+
+
+          <label for="password2" class="block text-sm font-medium leading-6 text-gray-900">Repite la contraseña</label>
+          <div class="mt-2">
+            <input id="password2" name="password2" type="password"  [ngClass]="{'is-invalid': ValidPassword, 'is-valid': !ValidPassword}"
+            autocomplete="false" formControlName="ps2"  placeholder="repite contraseña"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm  ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+          </div>
+          <p *ngIf="ValidPassword"  class="text-red-700 text-sm"> ambas contraseñas deben coindicir, y tener almenos 6 caracteres</p>
+        </div>
+  
+        
+        <div>
+          <button type="submit" class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Registrarse</button>
+        </div>
+      </form>
+  
+      
+    </div>
+  </div>

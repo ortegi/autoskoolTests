@@ -1,0 +1,95 @@
+<div class="min-h-screen flex flex-col  mx-5  items-left max-w-90">
+    <div class="p-4">
+      <p class="bg-purple-700 text-white p-3 mr-3 text-center" *ngIf="errorMode">Estas haciendo un Test de errores</p>
+    </div>
+
+    <div class="flex justify-center my-3 flex flex-wrap max-w-full">
+      <button class="bg-green-500 text-white p-3 mr-3 mt-2" (click)="saveTest()" *ngIf="isLastQuestion() && currentQuestion.answered">Guardar💾</button>
+      <p class="bg-green-500 text-white p-3 mr-3 mt-2">Aciertos {{points}} 🎖️</p>
+      <p class="bg-red-500 text-white p-3 mr-3 mt-2">Fallos {{failedPoints}}😢</p>
+      <p class="bg-red-500 text-white p-3 mr-3 mt-2">Intentos restantes {{intentos}}🚀</p>
+      <button class="bg-purple-700 text-white p-3 mr-3 mt-2" (click)="init(false)">Nuevo test 😎</button>
+      <button class="bg-purple-700 text-white p-3 mt-2" (click)="init(true)">Test de errores 🚩</button>
+    </div>
+  
+      <div *ngIf="answeredQuestions.length > 0; else noQuestions">
+        <div class="my-3" *ngIf="answeredQuestions.length > 0">
+          <img alt="item" [src]="imagePath" class="">
+        </div>
+    
+        <div class="w-3/4" *ngIf="answeredQuestions.length > 0">
+          <h1 class="text-violet-800 my-3"> 
+            {{ currentQuestion.pregunta}}
+          </h1>
+          <div> 
+            <button type="button" 
+            [disabled]="currentQuestion.selected !== undefined"
+            [ngClass]="{
+              'bg-green-500': currentQuestion.selected == 0 && isCorrectAnswer(),
+              'bg-red-500': currentQuestion.selected == 0 && !isCorrectAnswer(),
+              'bg-purple-700': currentQuestion.selected === undefined || currentQuestion.selected != 0,
+              'disabled-btn': currentQuestion.selected !== 0 && currentQuestion.selected !== undefined
+            }" 
+          (click)="check(0)" 
+          class="focus:outline-none text-white hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">A</button>
+           {{ currentQuestion["a."]}}  </div>
+          <div>
+            <button type="button" 
+            [disabled]="currentQuestion.selected !== undefined"   
+            [ngClass]="{
+              'bg-green-500 ': currentQuestion.selected == 1 && isCorrectAnswer(),
+              'bg-red-500': currentQuestion.selected == 1 && !isCorrectAnswer(),
+              'bg-purple-700': currentQuestion.selected === undefined  || currentQuestion.selected != 1,
+              'disabled-btn': currentQuestion.selected !== 1 && currentQuestion.selected !== undefined
+            }"
+            (click)="check(1)" 
+            class="focus:outline-none text-white  hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">B</button> {{ currentQuestion["b."]}}  </div>
+          <div> <button type="button" [disabled]="currentQuestion.selected !== undefined" (click)="check(2)"    
+            [ngClass]="{
+              'bg-green-500': currentQuestion.selected == 2 && isCorrectAnswer(),
+              'bg-red-500': currentQuestion.selected == 2 && !isCorrectAnswer(),
+              'bg-purple-700': currentQuestion.selected === undefined || currentQuestion.selected != 2,
+              'disabled-btn': currentQuestion.selected !== 2 && currentQuestion.selected !== undefined
+            }"
+            class="focus:outline-none text-white  hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">C</button> {{ currentQuestion["c."]}}  </div>
+        </div>
+  
+        <div class="my-3">
+          <button type="button"  (click)="before()" [disabled]="isFirstQuestion()" [ngClass]="{'disabled-btn' : isFirstQuestion()}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Anterior</button>
+          <button type="button" (click)="next()" [disabled]="isLastQuestion()"  [ngClass]="{'disabled-btn' : isLastQuestion()}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Siguiente</button>
+        </div>
+  
+        <div *ngIf="doneQuestions.length > 0" class="mt-3 flex flex-wrap max-w-full" >
+          <div *ngFor="let q of doneQuestions; index as i;" (click)="redirect(i)" class="rounded-lg w-9 text-white p-3 mr-3 mb-3"  
+           [ngClass]="{
+            'bg-green-500': q.isCorrect,
+            'bg-red-500': !q.isCorrect,
+            'bg-yellow-400': !q.answered
+          }">
+            <p class="text-center text-lg"> {{ i + 1 }}</p>
+          </div>
+        </div>
+  
+        <div class="bg-red-500 text-white p-2 mt-5" *ngIf="failedPoints >=3">
+          <p> Parece que has suspendido...😐 <br> pero puedes seguir respondiendo las preguntas😢</p>
+        </div>
+  
+        <div class="mt-5" *ngIf="isLastQuestion() && currentQuestion.answered">
+            <div *ngIf="failedPoints >=3; else won" class="bg-red-500 text-white p-2"> Aun no estas listo, sigue practicando </div>
+            <ng-template #won class="">
+              <p class="bg-green-500 text-white p-2">Enhorabuena, has aprobado 😎😎!</p>
+            </ng-template>
+        </div>
+      </div>
+        
+      <ng-template #noQuestions>
+  
+        <p class="bg-purple-700 text-white p-3 mr-3 text-center">Parece que no tienes preguntas 😵 <br> 🚩Pincha en nuevo Test👌</p>
+      </ng-template>
+
+
+      
+    </div>
+
+  
+ 
