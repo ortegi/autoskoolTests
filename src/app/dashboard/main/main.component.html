@@ -70,12 +70,12 @@
           </div>
         </div>
   
-        <div class="bg-red-500 text-white p-2 mt-5" *ngIf="failedPoints >=3">
+        <div class="bg-red-500 text-white p-2 mt-5" *ngIf="failedPoints >3">
           <p> Parece que has suspendido...😐 <br> pero puedes seguir respondiendo las preguntas😢</p>
         </div>
   
         <div class="mt-5" *ngIf="isLastQuestion() && currentQuestion.answered">
-            <div *ngIf="failedPoints >=3; else won" class="bg-red-500 text-white p-2"> Aun no estas listo, sigue practicando </div>
+            <div *ngIf="failedPoints >3; else won" class="bg-red-500 text-white p-2"> Aun no estas listo, sigue practicando </div>
             <ng-template #won class="">
               <p class="bg-green-500 text-white p-2">Enhorabuena, has aprobado 😎😎!</p>
             </ng-template>

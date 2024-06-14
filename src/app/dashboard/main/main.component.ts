@@ -40,8 +40,13 @@ next(){
 
 
 studentWon():boolean{
-  console.log(this.points + this.failedPoints == this.answeredQuestions.length && this.failedPoints < 3)
-  return this.points + this.failedPoints == this.answeredQuestions.length && this.failedPoints < 3
+  const totalQuestions = this.answeredQuestions.length;
+  const correctAnswers = this.points;
+  const maxAllowedFails = 3; 
+  
+  const passed = correctAnswers >= (totalQuestions - maxAllowedFails) && this.failedPoints <= maxAllowedFails;
+
+  return passed;
 }
 
 
