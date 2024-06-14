@@ -40,7 +40,8 @@ next(){
 
 
 studentWon():boolean{
-  return this.points == this.answeredQuestions.length && this.failedPoints < 3
+  console.log(this.points + this.failedPoints == this.answeredQuestions.length && this.failedPoints < 3)
+  return this.points + this.failedPoints == this.answeredQuestions.length && this.failedPoints < 3
 }
 
 
